@@ -1,0 +1,90 @@
+{
+  "categories": [
+    [
+      "Vitamin A",
+      5000.0,
+      50000.0
+    ],
+    [
+      "Calories",
+      2000.0,
+      2250.0
+    ],
+    [
+      "Corn Servings",
+      0.0,
+      10.0
+    ],
+    [
+      "2% Milk Servings",
+      0.0,
+      10.0
+    ],
+    [
+      "Wheat Bread Servings",
+      0.0,
+      10.0
+    ]
+  ],
+  "foods": [
+    [
+      "Corn",
+      0.18
+    ],
+    [
+      "2% Milk",
+      0.23
+    ],
+    [
+      "Wheat Bread",
+      0.05
+    ]
+  ],
+  "nutrition_quantities": [
+    [
+      "Corn",
+      "Vitamin A",
+      107.0
+    ],
+    [
+      "Corn",
+      "Calories",
+      72.0
+    ],
+    [
+      "2% Milk",
+      "Vitamin A",
+      500.0
+    ],
+    [
+      "2% Milk",
+      "Calories",
+      121.0
+    ],
+    [
+      "Wheat Bread",
+      "Vitamin A",
+      0.0
+    ],
+    [
+      "Wheat Bread",
+      "Calories",
+      65.0
+    ],
+    [
+      "Corn",
+      "Corn Servings",
+      1.0
+    ],
+    [
+      "2% Milk",
+      "2% Milk Servings",
+      1.0
+    ],
+    [
+      "Wheat Bread",
+      "Wheat Bread Servings",
+      1.0
+    ]
+  ]
+}
