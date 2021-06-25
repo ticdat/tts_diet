@@ -1,5 +1,8 @@
 ### Diet example rendered in Tidy, Tested, Safe format
 
+If you're new to `ticdat`, then please read [this](https://github.com/ticdat/ticdat/wiki/1-Beginner-ticdat-intro)
+to orient yourself.
+
 * **tidy** The engine is organized as a package. Free standing .py files are appropriate for proof-of-concept and 
            educational purposes, but industrial code typically requires a package whose `__version__` attribute
            can be cross-referenced against a GitHub release tag. The package is 
