@@ -1,5 +1,11 @@
 ### Diet example rendered in Tidy, Tested, Safe format
 
+Usage:
+
+```
+    python -m tts_diet -i input.xlsx -o solution.xlsx
+```
+
 If you're new to `ticdat`, then please read [this](https://github.com/ticdat/ticdat/wiki/1-Beginner-ticdat-intro)
 to orient yourself.
 
