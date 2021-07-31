@@ -5,7 +5,6 @@ __pycache__/
 *.pyc
 *.db
 .idea/
-\_*
 
 # MacOS
 *.DS_Store
