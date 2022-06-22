@@ -10,7 +10,7 @@ def _this_directory() :
 def get_test_data(data_set_name):
     path = os.path.join(_this_directory(), "data", data_set_name)
     assert os.path.exists(path), f"bad path {path}"
-    # right now assumes data is archived as either a directory of csv files or a single json file for each data set
+    # right now assumes data is archived as a single json file for each data set
     if os.path.isfile(path):
         return tts_diet.input_schema.json.create_tic_dat(path)
 
