@@ -21,6 +21,7 @@ except:
     gp = None
 
 from ticdat import TicDatFactory
+from tts_diet.tooltips import input_schema_tooltips, solution_schema_tooltips
 
 # ------------------------ define the input schema --------------------------------
 # There are three input tables, with 4 primary key fields and 4 data fields.
@@ -28,6 +29,8 @@ input_schema = TicDatFactory (
     categories=[["Name"], ["Min Nutrition", "Max Nutrition"]],
     foods=[["Name"], ["Cost"]],
     nutrition_quantities=[["Food", "Category"], ["Quantity"]])
+for (tbl, fld), tip in input_schema_tooltips.items():
+    input_schema.set_tooltip(tbl, fld, tip)
 
 # Define the foreign key relationships
 input_schema.add_foreign_key("nutrition_quantities", "foods", ["Food", "Name"])
@@ -60,6 +63,8 @@ solution_schema = TicDatFactory(
     parameters=[["Parameter"], ["Value"]],
     buy_food=[["Food"], ["Quantity"]],
     consume_nutrition=[["Category"], ["Quantity"]])
+for (tbl, fld), tip in solution_schema_tooltips.items():
+    solution_schema.set_tooltip(tbl, fld, tip)
 # ---------------------------------------------------------------------------------
 
 
