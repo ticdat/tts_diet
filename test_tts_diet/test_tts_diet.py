@@ -3,6 +3,8 @@ import inspect
 import tts_diet
 import unittest
 import math
+from collections import defaultdict
+from ticdat import Slicer
 
 def _this_directory() :
     return os.path.dirname(os.path.realpath(os.path.abspath(inspect.getsourcefile(_this_directory))))
@@ -17,12 +19,29 @@ def get_test_data(data_set_name):
 def _smaller(x, y, epsilon=1e-5):
     return x < y and not math.isclose(x, y, rel_tol=epsilon)
 
+
 class TestDiet(unittest.TestCase):
+
+    def _sln_validate(self, dat, sln): # the solution validator
+        cn = defaultdict(float)
+        nq = Slicer(dat.nutrition_quantities)
+        for k, v in sln.buy_food.items():
+            for f, c in nq.slice(k, '*'):
+                cn[c] += dat.nutrition_quantities[f, c]["Quantity"] * v["Quantity"]
+        cn = {k: v for k, v in cn.items() if v > 0}
+        self.assertTrue(set(cn) == {k for k, v in sln.consume_nutrition.items() if v["Quantity"] > 0})
+        self.assertTrue(all(math.isclose(v, sln.consume_nutrition[k]["Quantity"], rel_tol=1e-5) for k, v in cn.items()))
+        for k, v in dat.categories.items():
+            self.assertTrue((1 - 1e-5) * v["Min Nutrition"] <= cn.get(k, 0) <= (1 + 1e-5) * v["Max Nutrition"])
+        self.assertTrue(math.isclose(sum(dat.foods[k]["Cost"] * v["Quantity"] for k, v in sln.buy_food.items()),
+                        sln.parameters["Total Cost"]["Value"], rel_tol=1e-5))
+
     # This is a pretty simple test suite - just two data sets. But the template should be clear for how you could
     # archive many useful data sets for validating your optimization engine.
     def test_standard_data_set(self):
         dat = get_test_data("standard_data_set.json")
         sln = tts_diet.solve(dat)
+        self._sln_validate(dat, sln)
         self.assertTrue(math.isclose(11.82886, sln.parameters["Total Cost"]["Value"], rel_tol=1e-5))
         # The test_ subroutine can stop here and still be a good test. The rest of the subroutine
         # demonstrates how you can validate the objective function is being handled by the optimization
@@ -38,6 +57,7 @@ class TestDiet(unittest.TestCase):
         # Note that they have a constraint on servings per foods, which we model using dummy categories.
         dat = get_test_data("neos_data_set.json")
         sln = tts_diet.solve(dat)
+        self._sln_validate(dat, sln)
         self.assertTrue(all(math.isclose(qty, sln.buy_food[f]["Quantity"], rel_tol=1e-5) for f, qty in
                             [['Corn', 1.94444], ['2% Milk', 10], ['Wheat Bread', 10]]))
 
